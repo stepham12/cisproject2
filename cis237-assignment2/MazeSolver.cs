@@ -25,20 +25,8 @@ namespace cis237_assignment2
             int currentX = xStart;
             int currentY = yStart;
 
-            //loop as long as exit is not found, which is when coordinates will be 
-            //outside of the array 
-            while(currentX < maze.GetLength(0) && currentY < maze.GetLength(1))
-            {
-                //Mark the current spot as X
-                maze[currentX, currentY] = 'X';
-
-                //Call mazeTraversal method to obtain next coordinates
-                mazeTraversal(ref currentX,ref currentY);
-
-                //Output the maze configuaration after each move
-                PrintMaze(maze);
-
-            }
+            //Call mazeTraversal method to obtain next coordinates
+            mazeTraversal(maze, currentX,currentY);
 
         }
 
@@ -50,11 +38,42 @@ namespace cis237_assignment2
         /// More than likely you will need to pass in at a minimum the current position
         /// in X and Y maze coordinates. EX: mazeTraversal(int currentX, int currentY)
         /// </summary>
-        private void mazeTraversal(ref int currentX, ref int currentY)
+        private void mazeTraversal(char[,] maze, int currentX,int currentY)
         {
             // Implement maze traversal recursive call
-            currentX++;
-            currentY++;
+
+            //base case
+            if (currentX == 0 || currentY == 0 || currentX == (maze.GetLength(0) - 1) || currentY == (maze.GetLength(0) - 1))
+            {
+                //PrintMaze(maze);
+                Console.WriteLine("Maze is solved!");
+            }
+            else
+            {
+                if (maze[currentX, currentY].ToString()==".")
+                {
+                    //Mark the current spot as X
+                    maze[currentX, currentY] = 'X';
+                    //PrintMaze(maze);
+
+                    // Move down and recursively check if this leads to solution (x,y) -> (x,y+1)
+                    mazeTraversal(maze, currentX, currentY + 1);
+
+                    // Move left and recursively check if this leads to solution (x,y) -> (x-1,y)
+                    mazeTraversal(maze, currentX - 1, currentY);
+
+                    // Move up and recursively check if this leads to solution (x,y) -> (x,y-1)
+                    mazeTraversal(maze, currentX, currentY - 1);
+
+                    // Move right and recursively check if this leads to solution (x,y) -> (x+1,y)
+                    mazeTraversal(maze, currentX + 1, currentY);
+
+                    //Mark as O if have to backtrack
+                    maze[currentX, currentY] = 'O';
+                    //PrintMaze(maze);
+
+                }
+            }
         }
 
         private void PrintMaze(char[,] maze)
@@ -66,7 +85,6 @@ namespace cis237_assignment2
                 for (int y = 0; y < maze.GetLength(0); y++)
                 {
                     printString += (maze[x,y] + " ");
-                    //execute this code block as long as condition is satisfied 
                 }
                 printString += Environment.NewLine;
             }
