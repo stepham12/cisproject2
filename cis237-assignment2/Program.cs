@@ -1,5 +1,9 @@
 ﻿using System;
 
+//Stephanie Amo
+//CIS 237
+//Due: 10/01/2019
+
 namespace cis237_assignment2
 {
     class Program
