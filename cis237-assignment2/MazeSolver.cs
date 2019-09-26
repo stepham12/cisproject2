@@ -21,12 +21,9 @@ namespace cis237_assignment2
         /// </summary>
         public void SolveMaze(char[,] maze, int xStart, int yStart)
         {
-            // Do work needed to use mazeTraversal recursive call and solve the maze.
-            int currentX = xStart;
-            int currentY = yStart;
 
-            //Call mazeTraversal method to obtain next coordinates
-            mazeTraversal(maze, currentX,currentY);
+            //Call mazeTraversal method
+            mazeTraversal(maze, xStart,yStart);
 
         }
 
@@ -44,43 +41,61 @@ namespace cis237_assignment2
             bool success = false;
 
             //base case
-            if (maze[currentX, currentY].ToString() == "F")
-                //(currentX == 0 || currentY == 0 || currentX == (maze.GetLength(0) - 1) || currentY == (maze.GetLength(0) - 1))
-            {
-                //PrintMaze(maze);
-                Console.WriteLine("Maze is solved!");
-                success = true;
-            }
-            else if(maze[currentX, currentY].ToString() == "." 
-                && currentX >=0 
-                && currentY >=0 
-                && currentX < maze.GetLength(0)
-                && currentY < maze.GetLength(0))
+            if (currentX == 0 || currentY == 0 || currentX == (maze.GetLength(0) - 1) || currentY == (maze.GetLength(0) - 1))
             {
                 //Mark the current spot as X
                 maze[currentX, currentY] = 'X';
-                //PrintMaze(maze);
-
-                // Move down and recursively check if this leads to solution (x,y) -> (x,y+1)
-                success = mazeTraversal(maze, currentX, currentY + 1);
-
-                // Move left and recursively check if this leads to solution (x,y) -> (x-1,y)
-                if(!success)
-                    success = mazeTraversal(maze, currentX - 1, currentY);
-
-                // Move up and recursively check if this leads to solution (x,y) -> (x,y-1)
-                if (!success)
-                    success = mazeTraversal(maze, currentX, currentY - 1);
-
-                // Move right and recursively check if this leads to solution (x,y) -> (x+1,y)
-                if (!success)
-                    success = mazeTraversal(maze, currentX + 1, currentY);
-
-                //Mark as O if have to backtrack
-                if(!success)
-                    maze[currentX, currentY] = 'O';
-                    //PrintMaze(maze);
+                PrintMaze(maze);
+                Console.WriteLine("Maze is solved!");
+                success = true;
             }
+            // Move down and recursively check if this leads to solution (x,y) -> (x,y+1)
+            if (!success && maze[currentX, currentY + 1].ToString() == ".")
+            {
+                //Mark the current spot as X
+                maze[currentX, currentY] = 'X';
+
+                PrintMaze(maze);
+                success = mazeTraversal(maze, currentX, currentY+1);
+            }
+
+            // Move left and recursively check if this leads to solution (x,y) -> (x-1,y)
+            if (!success && maze[currentX - 1, currentY].ToString() == ".")
+            {
+                //Mark the current spot as X
+                maze[currentX, currentY] = 'X';
+
+                PrintMaze(maze);
+                success = mazeTraversal(maze, currentX - 1, currentY);
+            }
+
+            // Move up and recursively check if this leads to solution (x,y) -> (x,y-1)
+            if (!success && maze[currentX, currentY - 1].ToString() == ".")
+            {
+                //Mark the current spot as X
+                maze[currentX, currentY] = 'X';
+
+                PrintMaze(maze);
+                success = mazeTraversal(maze, currentX, currentY - 1);
+            }
+
+            // Move right and recursively check if this leads to solution (x,y) -> (x+1,y)
+            if (!success && maze[currentX + 1, currentY].ToString() == ".")
+            {
+                //Mark the current spot as X
+                maze[currentX, currentY] = 'X';
+
+                PrintMaze(maze);
+                success = mazeTraversal(maze, currentX + 1, currentY);
+            }
+
+            //Mark as O if have to backtrack
+            if (!success)
+            {
+                maze[currentX, currentY] = 'O';
+                PrintMaze(maze);
+            }
+
             return success;
         }
 
