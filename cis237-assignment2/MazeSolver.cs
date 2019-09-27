@@ -40,52 +40,39 @@ namespace cis237_assignment2
 
             bool success = false;
 
-            //base case
+            //Mark the current spot as X
+            maze[currentX, currentY] = 'X';
+            PrintMaze(maze);
+
+            //base case, where the edge of the array has been reached successfully
             if (currentX == 0 || currentY == 0 || currentX == (maze.GetLength(0) - 1) || currentY == (maze.GetLength(0) - 1))
             {
-                //Mark the current spot as X
-                maze[currentX, currentY] = 'X';
-                PrintMaze(maze);
-                Console.WriteLine("Maze is solved!");
+                Console.WriteLine("Maze is solved!!!");
+                Console.WriteLine();
                 success = true;
             }
+
             // Move down and recursively check if this leads to solution (x,y) -> (x,y+1)
             if (!success && maze[currentX, currentY + 1].ToString() == ".")
             {
-                //Mark the current spot as X
-                maze[currentX, currentY] = 'X';
-
-                PrintMaze(maze);
                 success = mazeTraversal(maze, currentX, currentY+1);
             }
 
             // Move left and recursively check if this leads to solution (x,y) -> (x-1,y)
             if (!success && maze[currentX - 1, currentY].ToString() == ".")
             {
-                //Mark the current spot as X
-                maze[currentX, currentY] = 'X';
-
-                PrintMaze(maze);
                 success = mazeTraversal(maze, currentX - 1, currentY);
             }
 
             // Move up and recursively check if this leads to solution (x,y) -> (x,y-1)
             if (!success && maze[currentX, currentY - 1].ToString() == ".")
             {
-                //Mark the current spot as X
-                maze[currentX, currentY] = 'X';
-
-                PrintMaze(maze);
                 success = mazeTraversal(maze, currentX, currentY - 1);
             }
 
             // Move right and recursively check if this leads to solution (x,y) -> (x+1,y)
             if (!success && maze[currentX + 1, currentY].ToString() == ".")
             {
-                //Mark the current spot as X
-                maze[currentX, currentY] = 'X';
-
-                PrintMaze(maze);
                 success = mazeTraversal(maze, currentX + 1, currentY);
             }
 
