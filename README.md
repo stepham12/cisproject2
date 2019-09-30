@@ -1,7 +1,7 @@
 # Assignment 2 - Recursion to solve a maze
 ## Due: 10-01-2019
 
-## Author
+## Author: Stephanie Amo
 
 
 
@@ -50,6 +50,10 @@ Don't forget that you must have a base case for your recursive method or you wil
 
 ## Outside Resources Used
 
+Used https://www.tutorialspoint.com/csharp/csharp_nested_loops.htm to review nested for loops for PrintMaze method.
 
+Looked at https://www.w3resource.com/csharp-exercises/array/csharp-array-exercise-22.php for maze transposition.  
 
 ## Known Problems, Issues, And/Or Errors in the Program
+
+N/A
