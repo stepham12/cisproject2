@@ -37,46 +37,53 @@ namespace cis237_assignment2
         /// </summary>
         private Boolean mazeTraversal(char[,] maze, int currentX,int currentY)
         {
-
+            //A boolean to check whether or not the maze has been solved
+            //Method will continue until success = true
             bool success = false;
 
             //Mark the current spot as X
             maze[currentX, currentY] = 'X';
             PrintMaze(maze);
 
-            //base case, where the edge of the array has been reached successfully
+            //Base case, where the edge of the array has been reached successfully
             if (currentX == 0 || currentY == 0 || currentX == (maze.GetLength(0) - 1) || currentY == (maze.GetLength(0) - 1))
             {
                 Console.WriteLine("Maze is solved!!!");
                 Console.WriteLine();
+
+                //With the maze solved, the boolean is now set to true
                 success = true;
             }
 
-            // Move down and recursively check if this leads to solution (x,y) -> (x,y+1)
+            // Check if moving right is a valid move (x,y) -> (x,y+1)
             if (!success && maze[currentX, currentY + 1].ToString() == ".")
             {
+                //Move right and recursively check if this leads to a solution
                 success = mazeTraversal(maze, currentX, currentY+1);
             }
 
-            // Move left and recursively check if this leads to solution (x,y) -> (x-1,y)
+            // Check if moving up is a valid move (x,y) -> (x-1,y)
             if (!success && maze[currentX - 1, currentY].ToString() == ".")
             {
+                //Move up and recursively check if this leads to a solution
                 success = mazeTraversal(maze, currentX - 1, currentY);
             }
 
-            // Move up and recursively check if this leads to solution (x,y) -> (x,y-1)
+            // Check if moving left is a valid move (x,y) -> (x,y-1)
             if (!success && maze[currentX, currentY - 1].ToString() == ".")
             {
+                //Move left and recursively check if this leads to a solution
                 success = mazeTraversal(maze, currentX, currentY - 1);
             }
 
-            // Move right and recursively check if this leads to solution (x,y) -> (x+1,y)
+            // Check if moving down is a valid move (x,y) -> (x+1,y)
             if (!success && maze[currentX + 1, currentY].ToString() == ".")
             {
+                //Move down and recursively check if this leads to a solution
                 success = mazeTraversal(maze, currentX + 1, currentY);
             }
 
-            //Mark as O if have to backtrack
+            //If all directions fail, mark current location as 'O' before backtracking
             if (!success)
             {
                 maze[currentX, currentY] = 'O';
@@ -86,10 +93,16 @@ namespace cis237_assignment2
             return success;
         }
 
+        /// <summary>
+        /// This method is used to print out the current iteration of the maze. 
+        /// </summary>
+        /// <param name="maze"></param>
         private void PrintMaze(char[,] maze)
         {
+            //Initialize a string to be concatenated to
             string printString = "";
 
+            //Nested for loop to add each element of array to printString
             for (int x = 0;  x < maze.GetLength(0); x++)
             {
                 for (int y = 0; y < maze.GetLength(0); y++)
@@ -99,6 +112,7 @@ namespace cis237_assignment2
                 printString += Environment.NewLine;
             }
 
+            //Print the msze
             Console.WriteLine(printString);
         }
     }

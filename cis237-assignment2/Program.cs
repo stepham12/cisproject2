@@ -72,16 +72,20 @@ namespace cis237_assignment2
         /// <returns>transposedMaze</returns>
         static char[,] transposeMaze(char[,] mazeToTranspose)
         {
+            //Initialize a new maze of the same size of the maze being transposed
             char[,] transposedMaze = new char[mazeToTranspose.GetLength(0), mazeToTranspose.GetLength(0)];
 
+            //Nested for loop to obtain new maze
             for (int x = 0; x < mazeToTranspose.GetLength(0); x++)
             {
                 for (int y = 0; y < mazeToTranspose.GetLength(0); y++)
                 {
+                    //Fill in new maze using flipped coordinates from original maze
                     transposedMaze[y, x] = mazeToTranspose[x, y];
                 }
             }
             
+            //Return the transposed maze. 
             return transposedMaze;
         }
     }
